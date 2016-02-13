@@ -1,5 +1,6 @@
 import os
+import time
 
 while True:
 	os.system("adb shell screencap /sdcard/screen.png & adb pull /sdcard/screen.png")
-	os.sleep(600)
+	time.sleep(6)	# Delays for 6 seconds
