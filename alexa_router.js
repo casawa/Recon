@@ -9,6 +9,10 @@
 
 // Route the incoming request based on type (LaunchRequest, IntentRequest,
 // etc.) The JSON body of the request is provided in the event parameter.
+const https = require('https');
+const exec = require('child_process').exec;
+console.log("exec here" + exec);
+
 exports.handler = function (event, context) {
     try {
         console.log("event.session.application.applicationId=" + event.session.application.applicationId);
@@ -44,6 +48,7 @@ exports.handler = function (event, context) {
             context.succeed();
         }
     } catch (e) {
+        console.log(e);
         context.fail("Exception: " + e);
     }
 };
@@ -84,9 +89,23 @@ function onIntent(intentRequest, session, callback) {
         setColorInSession(intent, session, callback);
     } else if ("WhatsMyColorIntent" === intentName) {
         getColorFromSession(intent, session, callback);
-    }*/ else if ("AMAZON.HelpIntent" === intentName) {
+    }*/
+    else if ("LandIntent" === intentName) {
+        landDrone(callback)
+    } else if ("ForwardIntent" === intentName) {
+        forwardDrone(callback)
+    } else if ("BackwardIntent" === intentName) {
+        backwardDrone(callback)
+    } else if ("FlipIntent" === intentName) {
+        flipDrone(callback)
+    } else if ("RightIntent" === intentName) {
+        rightDrone(callback)
+    } else if ("LeftIntent" === intentName) {
+        leftDrone(callback)
+    } else if ("ImpressIntent" === intentName) {
+        impressDrone(callback)
+    } else if ("AMAZON.HelpIntent" === intentName) {
         getWelcomeResponse(callback);
-
     } else if ("AMAZON.StopIntent" === intentName) {
         endResponse(callback);
     } else {
@@ -117,9 +136,341 @@ function getLaunchResponse(callback) {
     var repromptText = "Please give directions";
     var shouldEndSession = false;
 
-    callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    var postData = JSON.stringify({
+      'command' : 'launch'
+    });
+
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+      /*headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': postData.length
+      }*/
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+
 }
+
+function landDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Landing";
+    var speechOutput = "Recon is about to land. "
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "";
+    var shouldEndSession = true;
+
+    var postData = JSON.stringify({
+      'command' : 'land'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+      /*headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': postData.length
+      }*/
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+}
+
+function flipDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Flip";
+    var speechOutput = "Recon is about to flip. ";
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "What's next?";
+    var shouldEndSession = false;
+
+    var postData = JSON.stringify({
+      'command' : 'flip'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+}
+
+function impressDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Impress";
+    var speechOutput = "Here goes nothing... ";
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "What's next?";
+    var shouldEndSession = false;
+
+    var postData = JSON.stringify({
+      'command' : 'flip'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+}
+
+function forwardDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Forward";
+    var speechOutput = "Recon is about to go forward. ";
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "What's next?";
+    var shouldEndSession = false;
+
+    var postData = JSON.stringify({
+      'command' : 'forward'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+}
+
+function backwardDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Backwards";
+    var speechOutput = "Recon is about to go backwards. ";
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "What's next?";
+    var shouldEndSession = false;
+
+    var postData = JSON.stringify({
+      'command' : 'backward'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+}
+
+function leftDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Left";
+    var speechOutput = "Recon is about to go left. ";
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "What's next?";
+    var shouldEndSession = false;
+
+    var postData = JSON.stringify({
+      'command' : 'left'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+}
+
+function rightDrone(callback) {
+    // If we wanted to initialize the session to have some attributes we could add those here.
+    var sessionAttributes = {};
+    var cardTitle = "Right";
+    var speechOutput = "Recon is about to go right. ";
+    // If the user either does not reply to the welcome message or says something that is not
+    // understood, they will be prompted again with this text.
+    var repromptText = "What's next?";
+    var shouldEndSession = false;
+
+    var postData = JSON.stringify({
+      'command' : 'right'
+    });
+
+    var options = {
+      hostname: 'torrid-inferno-7005.firebaseio.com',
+      port: 443,
+      path: '/.json',
+      method: 'PATCH',
+    };
+
+    body = '';
+    var req = https.request(options, function(res) {
+        res.on('data', function (chunk) {
+            body += chunk;
+            callback(sessionAttributes,
+            buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+        });
+//        context.succeed('Blah');
+    });
+
+    req.on('error', function(e) {
+      console.log('problem with request:' + e.message);
+    });
+
+    // write data to request body*/
+    req.write(postData);
+    req.end();
+    console.log("sdf: " + body);
+}
+
 
 function endResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
