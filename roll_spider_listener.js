@@ -9,80 +9,105 @@ var temporal = require('temporal');
 //var rollingSpider = new RollingSpider(process.env.UUID);
 var rollingSpider = new RollingSpider();
 
-
+var i = 0
+var prev = null
 console.log("starting to connect");
+temporal.clear();
 rollingSpider.connect(function () {
   console.log("connected");
   console.log("setting up");
   rollingSpider.setup(function () {
+    rollingSpider.flatTrim();
+    rollingSpider.startPing();
+    rollingSpider.flatTrim();
     console.log("set up completely");
     db.on('value', function(dataSnapshot) {
-      var data = dataSnapshot.val()
-      var command = data["command"]
-      if (command == "launch") {
-        temporal.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.launch();
+      if (i == 0) {
+        i += 1;
+      } else {
+        var data = dataSnapshot.val()
+        var command = data["command"]
+        console.log("received command")
+        if (command == "launch") {
+          console.log("launching");
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.flatTrim();
+                rollingSpider.takeOff();
+              }
             }
-          }
-        ]);
-      } else if (command == "land") {
-        temporal.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.land();
+          ]);
+          console.log("launched")
+        } else if (command == "land") {
+          console.log("landing")
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.land();
+              }
             }
-          }
-        ]);
-      } else if (command == "forward") {
-        temporal.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.forward();
+          ]);
+          console.log("landed");
+        } else if (command == "forward") {
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.forward();
+              }
             }
-          }
-        ]);
-      } else if (command == "left") {
-        temporal.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.left();
+          ]);
+        } else if (command == "left") {
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.left();
+              }
             }
-          }
-        ]);
-      } else if (command == "right") {
-        temporal.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.right();
+          ]);
+        } else if (command == "right") {
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.right();
+              }
             }
-          }
-        ]);
-      } else if (command == "backFlip") {
-        temporal.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.backFlip();
+          ]);
+        } else if (command == "flip") {
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.backFlip();
+              }
             }
-          }
-        ]);
-      } else if (command == "backward") {
-        temoral.queue([
-          {
-            delay: 5000,
-            task: function() {
-              rollingSpider.backward();
+          ]);
+        } else if (command == "backward") {
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.backward();
+              }
             }
-          }
-        ])
-      } 
+          ]);
+        } else if (command == "hover") {
+          temporal.queue([
+            {
+              delay: 5000,
+              task: function() {
+                rollingSpider.hover();
+              }
+            }
+          ]);
+        }
+      }
+
     });
   });
     /*
