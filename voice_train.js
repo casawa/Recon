@@ -8,6 +8,7 @@ db.on('value', function(dataSnapshot) {
 		var data = dataSnapshot.val()
 		var trainee = data["trainee"]
 		var searchQuery = trainee.replace(/' '/g, '+'); 
+		console.log("Searching " + searchQuery + "...");
 		exec("python classifier_from_search.py " + searchQuery);
 	} else {
 		i += 1;
