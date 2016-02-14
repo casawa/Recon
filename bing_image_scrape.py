@@ -12,10 +12,10 @@ if len(sys.argv) > 1:
 	query = str(query)
 	print "searching for " + query
 	searchString = '%27'+ query + '%27'
-	top = 300
+	top = 150
 	offset = 0
 	cntr = 1
-	numIters = 5
+	numIters = 2
 	os.system("mkdir scraped_images/%s" % (query))
 
 	for i in range(numIters):
