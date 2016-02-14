@@ -1,0 +1,141 @@
+DN0a22b384:WatsonAPI andrew$ ./classify.sh ../../coconut.zip 
+{"images":[
+	{"image":"coconut/10.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.727727}]},
+
+	{"image":"coconut/14.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.791795}]},
+
+	{"image":"coconut/16.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.670443}]},
+
+	{"image":"coconut/2.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.706811}]},
+
+	{"image":"coconut/20.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.73935}]},
+
+	{"image":"coconut/24.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.622669}]},
+
+	{"image":"coconut/26.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.787329}]},
+
+	{"image":"coconut/28.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.71514}]},
+
+	{"image":"coconut/30.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.750325}]},
+
+	{"image":"coconut/32.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.68035}]},
+
+	{"image":"coconut/34.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.782975}]},
+
+	{"image":"coconut/36.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.503221}]},
+
+	{"image":"coconut/38.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.761675}]},
+
+	{"image":"coconut/4.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.766235}]},
+
+	{"image":"coconut/40.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.765703}]},
+
+	{"image":"coconut/46.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.770956}]},
+
+	{"image":"coconut/52.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.770956}]},
+
+	{"image":"coconut/58.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.657648}]},
+
+	{"image":"coconut/6.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.65131}]},
+
+	{"image":"coconut/60.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.63381}]},
+	
+	{"image":"coconut/48.jpg"} ,
+	
+	{"image":"coconut/54.jpg"} ]
+}
+DN0a22b384:WatsonAPI andrew$ ./classify.sh ../../negatives.zip 
+{"images":[
+	{"image":"negatives/Pebble.jpg",
+	 "scores":[
+		 {"classifier_id":"coconut_398450894","name":"coconut","score":0.600738}]},
+	
+	{"image":"negatives/Airforce.jpg"} ,
+	
+	{"image":"negatives/Baby.jpg"} ,
+	
+	{"image":"negatives/Bathroom.jpg"} ,
+	
+	{"image":"negatives/Bomb.jpg"} ,
+	
+	{"image":"negatives/Boy.jpg"} ,
+	
+	{"image":"negatives/Car.jpg"} ,
+	
+	{"image":"negatives/Chess+Board.jpg"} ,
+	
+	{"image":"negatives/Circle.jpg"} ,
+	
+	{"image":"negatives/Comet.jpg"} ,
+	
+	{"image":"negatives/Cycle.jpg"} ,
+	
+	{"image":"negatives/Drill.jpg"} ,
+	
+	{"image":"negatives/Egg.jpg"} ,
+	
+	{"image":"negatives/Family.jpg"} ,
+	
+	{"image":"negatives/Fire.jpg"} ,
+	
+	{"image":"negatives/Fruit.jpg"} ,
+	
+	{"image":"negatives/Gemstone.jpg"} ,
+	
+	{"image":"negatives/Hammer.jpg"} ,
+	
+	{"image":"negatives/Hose.jpg"} ,
+	
+	{"image":"negatives/Kaleidoscope.jpg"} ,
+	
+	{"image":"negatives/Liquid.jpg"} ,
+	
+	{"image":"negatives/Meteor.jpg"} ,
+	
+	{"image":"negatives/Monster.jpg"} ,
+	
+	{"image":"negatives/Needle.jpg"} ,
+	
+	{"image":"negatives/Planet.jpg"} ]
+}
+DN0a22b384:WatsonAPI andrew$ 
