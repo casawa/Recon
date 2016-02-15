@@ -1,7 +1,7 @@
 'use strict';
 
 var Firebase = require('firebase');
-var db = new Firebase("https://torrid-inferno-7005.firebaseio.com/");
+var db = new Firebase(API_KEY);
 
 var RollingSpider = require('rolling-spider');
 var temporal = require('temporal');

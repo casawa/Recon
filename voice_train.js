@@ -1,6 +1,6 @@
 var exec = require('child_process').exec;
 var Firebase = require('firebase');
-var db = new Firebase("https://torrid-inferno-7005.firebaseio.com/");
+var db = new Firebase(API_KEY);
 
 i = 0;
 db.on('value', function(dataSnapshot) {
