@@ -6,6 +6,9 @@ import re
 from PIL import Image
 import zipfile
 
+def prRed(prt): print("\033[91m {}\033[00m" .format(prt))
+def prGreen(prt): print("\033[92m {}\033[00m" .format(prt))
+
 # vals post crop
 LEFT = 0
 TOP = 0
@@ -18,6 +21,7 @@ num = 3
 i = 0
 while True:
 	os.system("adb shell screencap /sdcard/screen.png")
+	print (" - screenshot taken")
 	time.sleep(0.5)
 	os.system("adb pull /sdcard/screen.png")
 	os.system("mv screen.png pics/" + str(i) + ".png")
@@ -33,19 +37,21 @@ while True:
 
 	for x in range(num):
 		for y in range(num):
-			print ("%d, %d, %d, %d saved as %s" % (LEFT + x * newWidth, TOP + y * newHeight, \
- 				RIGHT - (num-x - 1) * newWidth, BOTTOM - (num-y - 1) * newHeight, str(x) + str(y) + str(i)))
+			# print ("%d, %d, %d, %d saved as %s" % (LEFT + x * newWidth, TOP + y * newHeight, \
+ 				# RIGHT - (num-x - 1) * newWidth, BOTTOM - (num-y - 1) * newHeight, str(x) + str(y) + str(i)))
 			new = im.crop((LEFT + x * newWidth, TOP + y * newHeight, \
 				RIGHT - (num-x-1) * newWidth, BOTTOM - (num-y-1) * newHeight))
 			new.save("pics/" + str(i) + "_" + str(x) + str(y) + ".png")
 			zf.write("pics/" + str(i) + "_" + str(x) + str(y) + ".png")
 	zf.close()
+	print (" - image segmented")
 
 	positive = False
 	# v = subprocess.check_output("sh WatsonAPI/classify.sh pics/" + str(i) + "_" + str(x) + str(y) + ".png", shell=True)
 	v = subprocess.check_output("sh WatsonAPI/classify.sh pics/" + str(i)+ ".zip", shell=True)
+	print (" - classified segments")
 	# j = json.loads(v)
-	print(v)
+	# print(v)
 	scores = re.findall("\"score\":([0-9\.]*)", v)
 	for score in scores:
 		score = float(score)
@@ -54,8 +60,10 @@ while True:
 			break
 
 	if positive is True:
-		print "There is a beach ball!"
+		prGreen("There is a beach ball!")
 	else:
-		print "No beach ball!"
+		prRed("No beach ball!")
+
+	print
 
 	i += 1
