@@ -5,8 +5,6 @@ var db = new Firebase(API_KEY);
 
 var RollingSpider = require('rolling-spider');
 var temporal = require('temporal');
-//var rollingSpider = new RollingSpider(uuid='RS_W165914');
-//var rollingSpider = new RollingSpider(process.env.UUID);
 var rollingSpider = new RollingSpider();
 
 var i = 0

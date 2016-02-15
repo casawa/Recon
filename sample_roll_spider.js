@@ -2,8 +2,6 @@
 
 var RollingSpider = require('rolling-spider');
 var temporal = require('temporal');
-//var rollingSpider = new RollingSpider(uuid='RS_W165914');
-//var rollingSpider = new RollingSpider(process.env.UUID);
 var rollingSpider = new RollingSpider();
 
 console.log("starting to connect");
