@@ -12,7 +12,7 @@ import zipfile
 # delete _negatives.zip to remake
 def createNegativeImages():
 	if not os.path.exists("scraped_images/_negatives.zip"):
-		keyBing = 'uIZGEvSJzuqAupFkbEquALcsip60TCMKDL1WBHkFknM'        # get Bing key from: https://datamarket.azure.com/account/keys
+		keyBing = ''        # get Bing key from: https://datamarket.azure.com/account/keys
 		credentialBing = 'Basic ' + (':%s' % keyBing).encode('base64')[:-1] # the "-1" is to remove the trailing "\n" which encode adds
 		os.system("mkdir scraped_images/_negatives")
 		with open('random_objects.csv', 'rb') as csvfile:

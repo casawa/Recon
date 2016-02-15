@@ -6,7 +6,8 @@ import os
 import sys
 
 if len(sys.argv) > 1:
-	keyBing = 'uIZGEvSJzuqAupFkbEquALcsip60TCMKDL1WBHkFknM'        # get Bing key from: https://datamarket.azure.com/account/keys
+	
+	keyBing = ''        # get Bing key from: https://datamarket.azure.com/account/keys
 	credentialBing = 'Basic ' + (':%s' % keyBing).encode('base64')[:-1] # the "-1" is to remove the trailing "\n" which encode adds
 	query = sys.argv[1]
 	query = str(query)
