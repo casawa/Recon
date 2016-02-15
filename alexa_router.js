@@ -104,6 +104,10 @@ function onIntent(intentRequest, session, callback) {
         leftDrone(callback)
     } else if ("ImpressIntent" === intentName) {
         impressDrone(callback)
+    } else if ("ImagineIntent" === intentName) {
+        imagineDrone(intent, callback)
+    } else if ("DeliverIntent" === intentName) {
+        impressDrone(callback)
     } else if ("AMAZON.HelpIntent" === intentName) {
         getWelcomeResponse(callback);
     } else if ("AMAZON.StopIntent" === intentName) {
@@ -240,7 +244,7 @@ function flipDrone(callback) {
       method: 'PATCH',
     };
 
-    body = '';
+    body = '';imp
     var req = https.request(options, function(res) {
         res.on('data', function (chunk) {
             body += chunk;
@@ -471,6 +475,67 @@ function rightDrone(callback) {
     console.log("sdf: " + body);
 }
 
+
+function imagineDrone(intent, callback) {
+    var cardTitle = intent.name;
+    console.log(intent);
+    var cvObj = intent.slots.Object;
+    var repromptText = "";
+    var sessionAttributes = {};
+    var shouldEndSession = false;
+    var speechOutput = "";
+
+    if (cvObj) {
+        var obj = cvObj.value;
+        var postData = JSON.stringify({
+          'trainee' : obj
+        });
+
+        var options = {
+          hostname: 'torrid-inferno-7005.firebaseio.com',
+          port: 443,
+          path: '/.json',
+          method: 'PATCH',
+          /*headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': postData.length
+          }*/
+        };
+
+        body = '';
+        speechOutput = "Imagining " + obj;
+        shouldEndSession = true;
+
+        var req = https.request(options, function(res) {
+            res.on('data', function (chunk) {
+                body += chunk;
+                speechOutput = "Imagining " + obj;
+                shouldEndSession = true;
+
+                callback(sessionAttributes,
+                buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+            });
+        //        context.succeed('Blah');
+        });
+
+        req.on('error', function(e) {
+          console.log('problem with request:' + e.message);
+        });
+
+        // write data to request body*/
+        req.write(postData);
+        req.end();
+    } else {
+        speechOutput = "I'm not sure what you'd like me to imagine. Please try again";
+        repromptText = "I'm not sure what you'd like me to imagine.";
+
+        callback(sessionAttributes,
+         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+
+    }
+
+}
 
 function endResponse(callback) {
     // If we wanted to initialize the session to have some attributes we could add those here.
