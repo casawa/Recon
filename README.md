@@ -5,7 +5,7 @@ Searching is
 
 
 ## How we built it
-The DJI Phantom is a bit 
+The DJI Phantom is a consumer drone 
 
 ## Challenges we ran into
 
